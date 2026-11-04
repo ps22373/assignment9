@@ -90,8 +90,8 @@ jobs:
         with:
           push: true
           tags: |
-            ps223/601_module9:latest
-            ps223/601_module9:${{ github.sha }}
+            ps223/assignment9:latest
+            ps223/assignment9:${{ github.sha }}
           platforms: linux/amd64,linux/arm64
-          cache-from: type=registry,ref=ps223/601_module9:cache
+          cache-from: type=registry,ref=ps223/assignment9:cache
           cache-to: type=inline,mode=max
