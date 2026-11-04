@@ -50,20 +50,24 @@ jobs:
   security:
     needs: test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Build image
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
         run: docker build -t app:test .
-      
+
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: 'app:test'
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
+          version: 'v0.76.1'
   deploy:
     needs: security
     if: github.ref == 'refs/heads/main'
